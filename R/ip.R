@@ -147,7 +147,7 @@ function(instance,
 disassociate_ip <- function(ip, ...) {
     query <- list(Action = "DisassociateAddress")
     if (inherits(ip, "ec2_ip")) {
-        if (ip$domain == "vpc") {
+        if (ip$domain == "vpc" & "associationid" %in% names(ip)) {
             query$AssociationId <- ip$associationId
         } else if (ip$domain == "standard") {
             query$PublicIp <- ip$publicIp
