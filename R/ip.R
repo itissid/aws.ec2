@@ -148,15 +148,15 @@ disassociate_ip <- function(ip, ...) {
     query <- list(Action = "DisassociateAddress")
     if (inherits(ip, "ec2_ip")) {
         if (ip$domain == "vpc") {
-            query$AllocationId <- ip$allocationId
+            query$AssociationId <- ip$associationId
         } else if (ip$domain == "standard") {
             query$PublicIp <- ip$publicIp
         } else {
             stop("'ip' is not a recognized domain")
         }
     } else if (is.list(ip)) {
-        if ("allocationId" %in% names(ip)) {
-            query$AllocationId <- ip$allocationId
+        if ("associationid" %in% names(ip)) {
+            query$AssociationId <- ip$associationid
         } else if ("publicIp" %in% names(ip)) {
             query$PublicIp <- ip$publicIp
         } else {
@@ -164,7 +164,7 @@ disassociate_ip <- function(ip, ...) {
         }
     } else if (is.character(ip)) {
         if (!grepl("\\.", ip)) {
-            query$AllocationId <- ip
+            query$AssociationId <- ip
         } else {
             query$PublicIp <- ip
         }
