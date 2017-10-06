@@ -33,8 +33,8 @@ allocate_ip <- function(domain = c("vpc", "standard"), ...) {
     } else if(r$domain == "vpc") {
         out <- list(publicIp = r$publicIp[[1]], allocationId = r$allocationId[[1]], domain = r$domain[[1]])
     } else {
-        print("Unrecognized domain..")
-        stopifnot(TRUE)
+        print("Unrecognized domain. NOT ALLOCATING ADDRESS")
+        return(NULL)
     }
     return(structure(out, 
                      class = "ec2_ip", 
